@@ -34,7 +34,7 @@ const TermPage = ({ courses }) => {
         
         </div>
 
-        <CourseList courses={filteredCourses} selected={selected} toggleSelected={toggleSelected}/>
+        <CourseList allCourses={courses} courses={filteredCourses} selected={selected} toggleSelected={toggleSelected}/>
       </div>
     );
 

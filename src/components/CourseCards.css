@@ -2,3 +2,7 @@
     background-color:lemonchiffon;
     color: green;
   }
+  .card.conflict {
+    background-color: #f8d7da; /* Change this to whatever color you want for conflict */
+    cursor: not-allowed; /* Make it appear unclickable */
+}
