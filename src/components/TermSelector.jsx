@@ -3,14 +3,14 @@ import { useState } from 'react';
 
 const Chooser = ({ selectedTerm, setSelectedTerm, choices }) => {
 
-  const nextChoice = () => {
-    const currentIndex = choices.indexOf(selectedTerm);
-    const nextIndex = (currentIndex + 1) % choices.length;
-    setSelectedTerm(choices[nextIndex]);
-  }
+
 
   return (
-    <button onClick={nextChoice}>{selectedTerm}</button>
+    <div>
+    <button className="btn btn-outline-dark" onClick={() => setSelectedTerm(choices[0])}>{choices[0]}</button>
+    <button className="btn btn-outline-dark" onClick={() => setSelectedTerm(choices[1])}>{choices[1]}</button>
+    <button className="btn btn-outline-dark" onClick={() => setSelectedTerm(choices[2])}>{choices[2]}</button>
+    </div>
   );
 };
 

@@ -7,7 +7,7 @@ import './TermPage.css'
 const TermPage = ({ courses }) => {
     const choices = ['Fall', 'Winter', 'Spring'];
     const [selected,setSelected] = useState([])
-    const [selectedTerm, setSelectedTerm] = useState(choices[0]);
+    const [selectedTerm, setSelectedTerm] = useState("Fall");
     const [open, setOpen] = useState(false);
 
     const openModal = () => setOpen(true);
@@ -30,10 +30,8 @@ const TermPage = ({ courses }) => {
         </Modal>
         <div className='header-buttons'>
           <Chooser selectedTerm={selectedTerm} setSelectedTerm={setSelectedTerm} choices={choices} />
-         <button className="btn btn-outline-dark" onClick={openModal}><i className="bi bi-cart4"></i></button>
-        
+         <button className="btn btn-outline-dark" onClick={openModal}>Course Plan</button>
         </div>
-
         <CourseList allCourses={courses} courses={filteredCourses} selected={selected} toggleSelected={toggleSelected}/>
       </div>
     );

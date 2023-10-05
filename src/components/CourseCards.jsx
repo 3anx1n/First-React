@@ -1,4 +1,5 @@
 import './CourseCards.css'
+import { Link } from 'react-router-dom';
 const CourseCards = ({id, course,selected,toggleSelected, conflict}) =>{
     const isSelected = selected.includes(id);
     let cardClasses = 'card m-1 p-2';
@@ -9,6 +10,9 @@ const CourseCards = ({id, course,selected,toggleSelected, conflict}) =>{
            <div className={`card-body ${selected.includes(id) ? 'selected' : ''}`}>
            <h5 className="card-title">{course.term} CS {course.number}</h5>
            <p className="card-text">{course.title}</p>
+           <Link to={`/edit/${id}`}>edit</Link>
+           </div>
+           <div className='card-footer'>
            <p className="card-text">{course.meets}</p>
            </div>
        </div>

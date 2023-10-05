@@ -7,6 +7,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useJsonQuery } from './utilities/fetch';
 import TermPage from './components/TermPage'
+import Dispatcher from './components/Dispatcher';
 
 const Main = () => {
   const [data, isLoading, error] = useJsonQuery('https://courses.cs.northwestern.edu/394/guides/data/cs-courses.php');
@@ -16,7 +17,7 @@ const Main = () => {
   if (!data) return <h1>No user data found</h1>;
   return (<div>
     <Banner title = {data.title}/>
-    <TermPage courses = {data.courses}/>
+    <Dispatcher courses = {data.courses} />
     </div>)
 }
 
