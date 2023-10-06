@@ -3,24 +3,38 @@ import { useFormData } from './utilities/useFormData'
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
-const validateUserData = (key, val) => {
+const validateCourseData = (key, val) => {
   switch (key) {
-    case 'firstName': case 'lastName':
-      return /(^\w\w)/.test(val) ? '' : 'must be least two characters';
-    case 'email':
-      return /^\w+@\w+[.]\w+/.test(val) ? '' : 'must contain name@domain.top-level-domain';
-    default: return '';
+    case 'title':
+      return val.length >= 2 ? '' : 'Must be at least two characters';
+    case 'meets':
+      if (!val) return 'Meeting time cannot be empty'; 
+      const timePattern = /^[0-2]?[0-9]:[0-5][0-9]-[0-2]?[0-9]:[0-5][0-9]$/;
+      const [days, time] = val.split(' ');
+      if (!days) {
+        return 'Must provide days before time.';
+      }
+      const cleanedDays = days.replace(/M|Tu|W|Th|F|Sa|Su/g, '');
+      if (cleanedDays.length !== 0) {
+        return 'Must contain valid days sequence (e.g., M, Tu, W, Th, F, Sa, Su) without repetitions.';
+      }
+      if (!timePattern.test(time)) {
+        return 'Must contain a valid start-end time, e.g., 12:00-13:20';
+      }
+    default:
+      return '';
   }
 };
 
 const InputField = ({name, text, state, change}) => (
   <div className="mb-3">
     <label htmlFor={name} className="form-label">{text}</label>
-    <input className="form-control" id={name} name={name} 
+    <input className={`form-control ${state.errors?.[name] ? 'is-invalid' : ''}`} id={name} name={name} 
       defaultValue={state.values?.[name]} onChange={change} />
-    <div className="invalid-feedback">{state.errors?.[name]}</div>
+    {state.errors?.[name] && <div className="invalid-feedback">{state.errors?.[name]}</div>}
   </div>
 );
+
 
 const ButtonBar = ({message, disabled}) => {
   const navigate = useNavigate();
@@ -36,8 +50,9 @@ const ButtonBar = ({message, disabled}) => {
 const UserEditor = ({courses}) => {
     const { id } = useParams()
     const course = courses[id]
+
 //   const [update, result] = useDbUpdate(`/users/${user.id}`);
-  const [state, change] = useFormData(validateUserData, course);
+  const [state, change] = useFormData(validateCourseData, course);
   const submit = (evt) => {
     evt.preventDefault();
     if (!state.errors) {
@@ -47,8 +62,8 @@ const UserEditor = ({courses}) => {
 
   return (
     <form onSubmit={null} noValidate className={state.errors ? 'was-validated' : null}>
-      <InputField name="Title" text="Title" state={state} change={change} />
-      <InputField name="Meeting time" text="Meeting" state={state} change={change} />
+      <InputField name="title" text="Title" state={state} change={change} />
+      <InputField name="meets" text="Meeting time" state={state} change={change} />
       <ButtonBar />
     </form>
   )
