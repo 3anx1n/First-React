@@ -8,12 +8,15 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useJsonQuery } from './utilities/fetch';
 import TermPage from './components/TermPage'
 import Dispatcher from './components/Dispatcher';
+import { useDbData } from './utilities/firebase';
+import { initializeApp } from "firebase/app";
+import { getDatabase } from "firebase/database";
 
 const Main = () => {
-  const [data, isLoading, error] = useJsonQuery('https://courses.cs.northwestern.edu/394/guides/data/cs-courses.php');
+  const [data, error] = useDbData("/");
 
   if (error) return <h1>Error loading user data: {`${error}`}</h1>;
-  if (isLoading) return <h1>Loading user data...</h1>;
+  if (data === undefined) return <h1>Loading user data...</h1>;
   if (!data) return <h1>No user data found</h1>;
   return (<div>
     <Banner title = {data.title}/>

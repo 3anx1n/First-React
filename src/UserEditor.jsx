@@ -1,5 +1,6 @@
 
 import { useFormData } from './utilities/useFormData'
+import { useDbUpdate } from './utilities/firebase';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
@@ -51,7 +52,7 @@ const UserEditor = ({courses}) => {
     const { id } = useParams()
     const course = courses[id]
 
-//   const [update, result] = useDbUpdate(`/users/${user.id}`);
+  const [update, result] = useDbUpdate(`/courses/${course.id}`);
   const [state, change] = useFormData(validateCourseData, course);
   const submit = (evt) => {
     evt.preventDefault();
@@ -61,7 +62,7 @@ const UserEditor = ({courses}) => {
   };
 
   return (
-    <form onSubmit={null} noValidate className={state.errors ? 'was-validated' : null}>
+    <form onSubmit={submit} noValidate className={state.errors ? 'was-validated' : null}>
       <InputField name="title" text="Title" state={state} change={change} />
       <InputField name="meets" text="Meeting time" state={state} change={change} />
       <ButtonBar />
