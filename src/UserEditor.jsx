@@ -52,7 +52,7 @@ const UserEditor = ({courses}) => {
     const { id } = useParams()
     const course = courses[id]
 
-  const [update, result] = useDbUpdate(`/courses/${course.id}`);
+  const [update, result] = useDbUpdate(`/courses/${id}`);
   const [state, change] = useFormData(validateCourseData, course);
   const submit = (evt) => {
     evt.preventDefault();
@@ -65,7 +65,7 @@ const UserEditor = ({courses}) => {
     <form onSubmit={submit} noValidate className={state.errors ? 'was-validated' : null}>
       <InputField name="title" text="Title" state={state} change={change} />
       <InputField name="meets" text="Meeting time" state={state} change={change} />
-      <ButtonBar />
+      <ButtonBar message={result?.message}/>
     </form>
   )
 };
