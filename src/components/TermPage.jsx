@@ -4,7 +4,7 @@ import CourseList from '../components/CourseList'
 import Modal from './Modal'
 import Cart from './Cart'
 import './TermPage.css'
-const TermPage = ({ courses }) => {
+const TermPage = ({ profile, courses }) => {
     const choices = ['Fall', 'Winter', 'Spring'];
     const [selected,setSelected] = useState([])
     const [selectedTerm, setSelectedTerm] = useState("Fall");
@@ -32,7 +32,7 @@ const TermPage = ({ courses }) => {
           <Chooser selectedTerm={selectedTerm} setSelectedTerm={setSelectedTerm} choices={choices} />
          <button className="btn btn-outline-dark" onClick={openModal}>Course Plan</button>
         </div>
-        <CourseList allCourses={courses} courses={filteredCourses} selected={selected} toggleSelected={toggleSelected}/>
+        <CourseList allCourses={courses} courses={filteredCourses} profile = {profile} selected={selected} toggleSelected={toggleSelected}/>
       </div>
     );
 
