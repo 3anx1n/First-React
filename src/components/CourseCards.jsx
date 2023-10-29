@@ -6,7 +6,7 @@ const CourseCards = ({id, course,profile,selected,toggleSelected, conflict}) =>{
     if (isSelected) cardClasses += ' selected';
     if (conflict) cardClasses += ' conflict';
 
-    return <div className={cardClasses} onClick={() => { if (!conflict) toggleSelected(id) }}>
+    return <div className={cardClasses} onClick={() => { if (!conflict) toggleSelected(id) }} data-cy="course">
            <div className={`card-body ${selected.includes(id) ? 'selected' : ''}`}>
            <h5 className="card-title">{course.term} CS {course.number}</h5>
            <p className="card-text">{course.title}</p>
